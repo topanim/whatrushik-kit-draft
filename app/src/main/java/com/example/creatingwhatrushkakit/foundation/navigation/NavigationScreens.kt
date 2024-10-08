@@ -16,22 +16,53 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavGraphBuilder
 import kotlinx.serialization.Serializable
 
 
-data class NavItem(
+open class NavItem(
     val name: String,
     val icon: ImageVector,
     val provider: ScreenProvider
-)
+) {
+    open fun selected(destination: NavDestination) = false
+}
+
+@Composable
+fun DefaultBottomNavBar(
+    navigator: NavigationController = rememberNavigator(),
+    screens: Iterable<NavItem>
+) = NavigationBar {
+    var currentDestination by remember { mutableStateOf(navigator.c.currentDestination) }
+
+    LaunchedEffect(Unit) {
+        navigator.c.addOnDestinationChangedListener { _, destination, _ ->
+            currentDestination = destination
+        }
+    }
+
+    screens.forEach { item ->
+        NavigationItem(
+            item = item,
+            selected = currentDestination != null && item.selected(currentDestination!!),
+            onClick = {
+                navigator.c.navigate(item.provider) {
+                    launchSingleTop = true
+                }
+            }
+        )
+    }
+}
 
 @Composable
 fun RowScope.NavigationItem(
@@ -56,22 +87,27 @@ class ScreenMainDemo(data: Provider) : Screen<ScreenMainDemo.Provider>(data) {
         }
 
         val mainScreens = setOf(
-            NavItem(
+            object : NavItem(
                 name = "Home",
                 icon = Icons.Default.Favorite,
                 provider = ScreenDemo1.Provider
-            ),
-            NavItem(
+            ) {
+                override fun selected(destination: NavDestination): Boolean =
+                    destination.hasRoute<ScreenDemo1.Provider>()
+            },
+            object : NavItem(
                 name = "Details",
                 icon = Icons.Default.CheckCircle,
                 provider = ScreenDemo2.Provider
-            )
+            ) {
+                override fun selected(destination: NavDestination): Boolean =
+                    destination.hasRoute<ScreenDemo2.Provider>()
+            }
         )
     }
 
     @Composable
     override fun content(modifier: Modifier) {
-        var selected by remember { mutableIntStateOf(0) }
         val navigator = rememberNavigator()
 
         Log.d("d", "main navigator: $navigator")
@@ -79,20 +115,10 @@ class ScreenMainDemo(data: Provider) : Screen<ScreenMainDemo.Provider>(data) {
 
         Scaffold(
             bottomBar = {
-                NavigationBar {
-                    mainScreens.forEachIndexed { index, item ->
-                        NavigationItem(
-                            item = item,
-                            selected = index == selected,
-                            onClick = {
-                                selected = index
-                                navigator.c.navigate(item.provider) {
-                                    launchSingleTop = true
-                                }
-                            }
-                        )
-                    }
-                }
+                DefaultBottomNavBar(
+                    screens = mainScreens,
+                    navigator = navigator
+                )
             }
         ) {
             NavigationHost(

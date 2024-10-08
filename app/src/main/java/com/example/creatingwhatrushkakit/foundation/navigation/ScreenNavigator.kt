@@ -42,6 +42,7 @@ fun rememberNavigator(): NavigationController {
     return NavigationController(parent, navController)
 }
 
+
 @Composable
 fun NavigationHost(
     modifier: Modifier = Modifier,

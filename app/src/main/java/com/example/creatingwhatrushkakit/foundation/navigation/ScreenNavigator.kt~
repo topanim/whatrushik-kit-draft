@@ -43,6 +43,10 @@ fun rememberNavigator(): NavigationController {
 }
 
 @Composable
+fun rememberLocalNavigator(): NavigationController = LocalNavController.currentOrThrow
+
+
+@Composable
 fun NavigationHost(
     modifier: Modifier = Modifier,
     navigator: NavigationController = rememberNavigator(),
@@ -60,10 +64,15 @@ fun NavigationHost(
 }
 
 
+val globalRegistry: NavGraphBuilder.() -> Unit = {
+    register(ScreenMainDemo::class)
+    register(ScreenDemo3::class)
+}
+
 @Composable
 fun Main() {
-    NavigationHost(start = ScreenMainDemo.Provider) {
-        register(ScreenMainDemo::class)
-        register(ScreenDemo3::class)
-    }
+    NavigationHost(
+        start = ScreenMainDemo.Provider,
+        registry = globalRegistry
+    )
 }
