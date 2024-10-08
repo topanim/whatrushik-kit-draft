@@ -71,7 +71,7 @@ fun RowScope.NavigationItem(
     onClick: () -> Unit
 ) = NavigationBarItem(
     selected = selected,
-    onClick = onClick,
+    onClick = { if (!selected) onClick() },
     label = { Text(text = item.name) },
     icon = { Icon(item.icon, contentDescription = null) }
 )
