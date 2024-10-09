@@ -40,7 +40,7 @@ open class NavItem(
 
 @Composable
 fun DefaultBottomNavBar(
-    navigator: NavigationController = rememberNavigator(),
+    navigator: Navigator = rememberNavigator(),
     screens: Iterable<NavItem>
 ) = NavigationBar {
     var currentDestination by remember { mutableStateOf(navigator.c.currentDestination) }
@@ -108,10 +108,10 @@ class ScreenMainDemo(data: Provider) : Screen<ScreenMainDemo.Provider>(data) {
 
     @Composable
     override fun content(modifier: Modifier) {
-        val navigator = rememberNavigator()
+        val navigator = rememberHostNavigator()
 
         Log.d("d", "main navigator: $navigator")
-        Log.d("d", "main navigator parent: ${navigator.parentOrThrow}")
+        Log.d("d", "main navigator parent: ${navigator.parent.orThrow}")
 
         Scaffold(
             bottomBar = {
@@ -142,7 +142,7 @@ class ScreenDemo3(data: Provider) : Screen<ScreenDemo3.Provider>(data) {
         modifier = Modifier
             .fillMaxSize()
     ) {
-        val navigator = LocalNavController.currentOrThrow
+        val navigator = rememberNavigator()
 
         Text(text = "UpperScreen")
 
@@ -165,7 +165,7 @@ class ScreenDemo1(data: Provider) : Screen<ScreenDemo1.Provider>(data) {
         modifier = Modifier
             .fillMaxSize()
     ) {
-        val navigator = LocalNavController.currentOrThrow
+        val navigator = rememberNavigator()
 
         Text(text = "Home")
 
@@ -190,12 +190,12 @@ class ScreenDemo2(data: Provider) : Screen<ScreenDemo2.Provider>(data) {
         modifier = Modifier
             .fillMaxSize()
     ) {
-        val navigator = LocalNavController.currentOrThrow
+        val navigator = rememberNavigator(1)
 
         Text(text = "Details")
 
         Button(onClick = {
-            navigator.parentOrThrow.c.navigate(ScreenDemo3.Provider)
+            navigator.c.navigate(ScreenDemo3.Provider)
         }) {
             Text(text = "to UpperScreen")
         }

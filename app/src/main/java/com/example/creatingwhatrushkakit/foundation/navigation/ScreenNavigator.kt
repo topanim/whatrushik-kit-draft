@@ -4,6 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -13,9 +17,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import kotlin.reflect.KClass
 
-val LocalNavController = compositionLocalOf<NavigationController?> { null }
+val LocalNavController = compositionLocalOf<Navigator?> { null }
 
-val ProvidableCompositionLocal<NavigationController?>.currentOrThrow
+val ProvidableCompositionLocal<Navigator?>.currentOrThrow
     @Composable get() = current ?: error("Navigation controller not configured")
 
 
@@ -27,28 +31,42 @@ inline fun <reified P : ScreenProvider, S : Screen<P>> NavGraphBuilder.register(
     }
 }
 
-data class NavigationController(
-    val parent: NavigationController?,
+data class Navigator(
+    val parent: Navigator?,
     val c: NavHostController
 )
 
-val NavigationController.parentOrThrow
-    get() = parent ?: error("Navigation controller has no parent")
+inline val <reified T : Any?> T.orThrow
+    get() = this ?: throw NullPointerException("${T::class} is null")
 
 @Composable
-fun rememberNavigator(): NavigationController {
-    val parent = LocalNavController.current
-    val navController = rememberNavController()
-    return NavigationController(parent, navController)
+fun rememberNavigator(level: Int): Navigator {
+    val current = LocalNavController.current
+    var parentNavigator by remember { mutableStateOf(current) }
+
+    for (i in 0 until level) {
+        parentNavigator ?: break
+        parentNavigator = parentNavigator!!.parent
+    }
+
+    return parentNavigator.orThrow
 }
 
+@Composable
+fun rememberNavigator(): Navigator =
+    LocalNavController.current ?: rememberHostNavigator(null)
+
+@Composable
+fun rememberHostNavigator(
+    parent: Navigator? = LocalNavController.current
+): Navigator = Navigator(parent, rememberNavController())
 
 @Composable
 fun NavigationHost(
     modifier: Modifier = Modifier,
-    navigator: NavigationController = rememberNavigator(),
     start: ScreenProvider,
-    registry: NavGraphBuilder.() -> Unit
+    registry: NavGraphBuilder.() -> Unit,
+    navigator: Navigator = rememberHostNavigator()
 ) = CompositionLocalProvider(
     LocalNavController provides navigator
 ) {
