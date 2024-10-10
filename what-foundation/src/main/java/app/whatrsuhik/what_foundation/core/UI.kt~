@@ -1,0 +1,5 @@
+package app.whatrsuhik.what_foundation.core
+
+abstract class UIBusinessComponent : UIComponent {
+
+}

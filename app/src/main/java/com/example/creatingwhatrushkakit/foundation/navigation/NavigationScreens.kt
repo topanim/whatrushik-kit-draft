@@ -27,15 +27,24 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavGraphBuilder
+import app.whatrsuhik.what_navigation.core.NavComponent
+import app.whatrsuhik.what_navigation.core.NavProvider
+import app.whatrsuhik.what_navigation.core.NavigationHost
+import app.whatrsuhik.what_navigation.core.Navigator
+import app.whatrsuhik.what_navigation.core.register
+import app.whatrsuhik.what_navigation.core.rememberHostNavigator
+import app.whatrsuhik.what_navigation.core.rememberNavigator
+import app.whatrsuhik.what_navigation.utils.orThrow
+import com.example.creatingwhatrushkakit.foundation.navigation.ScreenDemo3.Provider
 import kotlinx.serialization.Serializable
 
 
-open class NavItem(
+abstract class NavItem(
     val name: String,
     val icon: ImageVector,
-    val provider: ScreenProvider
+    val provider: NavProvider
 ) {
-    open fun selected(destination: NavDestination) = false
+    abstract fun selected(destination: NavDestination): Boolean
 }
 
 @Composable
@@ -76,9 +85,18 @@ fun RowScope.NavigationItem(
     icon = { Icon(item.icon, contentDescription = null) }
 )
 
-class ScreenMainDemo(data: Provider) : Screen<ScreenMainDemo.Provider>(data) {
+inline fun <reified P : NavProvider> navItem(
+    name: String,
+    icon: ImageVector,
+    provider: P
+) = object : NavItem(name, icon, provider) {
+    override fun selected(destination: NavDestination) = destination.hasRoute<P>()
+}
+
+
+class ScreenMainDemo(override val data: Provider) : NavComponent<ScreenMainDemo.Provider> {
     @Serializable
-    object Provider : ScreenProvider()
+    object Provider : NavProvider()
 
     private companion object {
         val mainRegistry: NavGraphBuilder.() -> Unit = {
@@ -87,22 +105,16 @@ class ScreenMainDemo(data: Provider) : Screen<ScreenMainDemo.Provider>(data) {
         }
 
         val mainScreens = setOf(
-            object : NavItem(
+            navItem(
                 name = "Home",
                 icon = Icons.Default.Favorite,
                 provider = ScreenDemo1.Provider
-            ) {
-                override fun selected(destination: NavDestination): Boolean =
-                    destination.hasRoute<ScreenDemo1.Provider>()
-            },
-            object : NavItem(
+            ),
+            navItem(
                 name = "Details",
                 icon = Icons.Default.CheckCircle,
                 provider = ScreenDemo2.Provider
-            ) {
-                override fun selected(destination: NavDestination): Boolean =
-                    destination.hasRoute<ScreenDemo2.Provider>()
-            }
+            )
         )
     }
 
@@ -131,9 +143,9 @@ class ScreenMainDemo(data: Provider) : Screen<ScreenMainDemo.Provider>(data) {
     }
 }
 
-class ScreenDemo3(data: Provider) : Screen<ScreenDemo3.Provider>(data) {
+class ScreenDemo3(override val data: Provider) : NavComponent<ScreenDemo3.Provider> {
     @Serializable
-    object Provider : ScreenProvider()
+    object Provider : NavProvider()
 
     @Composable
     override fun content(modifier: Modifier) = Column(
@@ -154,9 +166,9 @@ class ScreenDemo3(data: Provider) : Screen<ScreenDemo3.Provider>(data) {
     }
 }
 
-class ScreenDemo1(data: Provider) : Screen<ScreenDemo1.Provider>(data) {
+class ScreenDemo1(override val data: Provider) : NavComponent<ScreenDemo1.Provider> {
     @Serializable
-    object Provider : ScreenProvider()
+    object Provider : NavProvider()
 
     @Composable
     override fun content(modifier: Modifier) = Column(
@@ -179,9 +191,9 @@ class ScreenDemo1(data: Provider) : Screen<ScreenDemo1.Provider>(data) {
     }
 }
 
-class ScreenDemo2(data: Provider) : Screen<ScreenDemo2.Provider>(data) {
+class ScreenDemo2(override val data: Provider) : NavComponent<ScreenDemo2.Provider> {
     @Serializable
-    object Provider : ScreenProvider()
+    object Provider : NavProvider()
 
     @Composable
     override fun content(modifier: Modifier) = Column(
@@ -190,14 +202,21 @@ class ScreenDemo2(data: Provider) : Screen<ScreenDemo2.Provider>(data) {
         modifier = Modifier
             .fillMaxSize()
     ) {
-        val navigator = rememberNavigator(1)
+        val parentNavigator = rememberNavigator(1)
+        val navigator = rememberNavigator()
 
         Text(text = "Details")
 
         Button(onClick = {
-            navigator.c.navigate(ScreenDemo3.Provider)
+            parentNavigator.c.navigate(ScreenDemo3.Provider)
         }) {
             Text(text = "to UpperScreen")
+        }
+
+        Button(onClick = {
+            navigator.c.navigateUp()
+        }) {
+            Text(text = "back")
         }
     }
 }

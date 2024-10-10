@@ -1,4 +1,4 @@
-package com.example.creatingwhatrushkakit.foundation.base
+package app.whatrsuhik.what_foundation.core
 
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
@@ -9,7 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
-import com.example.creatingwhatrushkakit.foundation.navigation.UIComponent
+import app.whatrsuhik.what_foundation.utils.doAfter
+
 
 typealias EventView<Event> = @Composable (Modifier, Event) -> Unit
 
@@ -30,13 +31,12 @@ class Notifier<E : Event>(
         val removeFor: Long = 700L,
         val deleteAfter: Long? = 3000L,
         val reverseLayout: Boolean = true,
-        val enableGestures: Boolean = true,
         val focusOnNew: Boolean = true
     )
 
     companion object Mode {
         val NORMAL = Config()
-        val STRONG = Config(enableGestures = false)
+        val STRONG = Config(deleteAfter = null)
     }
 
     private var _events = mutableStateListOf<E>()
@@ -46,8 +46,6 @@ class Notifier<E : Event>(
 
         if (config.deleteAfter != null)
             doAfter(config.deleteAfter) {
-//                event.onRemove()
-//                delay(config.removeFor)
                 _events.remove(event)
             }
     }
@@ -62,7 +60,6 @@ class Notifier<E : Event>(
                     _events.size.takeIf { it > 0 }?.minus(1) ?: 0
                 )
         }
-
         LazyColumn(
             modifier = modifier,
             state = state,

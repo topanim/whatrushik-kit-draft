@@ -1,15 +1,18 @@
-package com.example.creatingwhatrushkakit.foundation.base
+package app.whatrsuhik.what_foundation.core
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
+import app.whatrsuhik.what_foundation.utils.Extension
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.withContext
 
-abstract class BaseViewModel<State : Any, Action, Event>(initialState: State) : ViewModel() {
+abstract class UIController<State : Any, Action, Event>(initialState: State) : ViewModel() {
     private val _viewStates = MutableStateFlow(initialState)
     private val _viewActions =
         MutableSharedFlow<Action?>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
@@ -33,15 +36,12 @@ abstract class BaseViewModel<State : Any, Action, Event>(initialState: State) : 
 
     abstract fun obtainEvent(viewEvent: Event)
 
-    protected fun updateState(state: State) {
-        _viewStates.value = state
-    }
+    protected fun updateState(state: State) { _viewStates.value = state }
+    protected fun updateState(block: Extension<State>) = updateState(viewState)
+    protected suspend fun safeUpdateState(block: Extension<State>) =
+        withContext(Main) { updateState(block) }
 
-    protected fun setAction(action: Action) {
+    protected fun setAction(action: Action? = null) {
         viewAction = action
-    }
-
-    fun clearAction() {
-        viewAction = null
     }
 }

@@ -1,13 +1,15 @@
-package com.example.creatingwhatrushkakit.foundation.base
+package app.whatrsuhik.what_foundation.core
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-fun <T : Any?> published(initValue: T) = Published(initValue)
+class Monitor<T : Any?>(initValue: T) : ReadWriteProperty<Any?, T> {
+    companion object {
+        fun <T : Any?> monitored(initValue: T) = Monitor(initValue)
+    }
 
-class Published<T : Any?>(initValue: T) : ReadWriteProperty<Any?, T> {
     private val state: MutableState<T> = mutableStateOf(initValue)
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {

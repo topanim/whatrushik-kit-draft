@@ -21,4 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Creating WhatrushkaKit"
 include(":app")
- 
+include(":what-navigation")
+include(":what-foundation")
+include(":what-ui")

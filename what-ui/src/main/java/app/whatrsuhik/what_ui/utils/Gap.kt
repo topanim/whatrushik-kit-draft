@@ -1,4 +1,4 @@
-package com.example.creatingwhatrushkakit.foundation.base
+package app.whatrsuhik.what_ui.utils
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
