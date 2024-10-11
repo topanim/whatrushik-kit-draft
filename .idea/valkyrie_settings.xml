@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Valkyrie.Settings">
+    <option name="iconPackDestination" value="C:\Users\kriti\Downloads\SHUIIconPack" />
+    <option name="iconPackName" value="SHUI" />
+    <option name="iconPackPackage" value="io.github.composegears.valkyrie" />
+    <option name="mode" value="IconPack" />
+    <option name="packageName" value="app.whatrushik.shui.icons" />
+  </component>
+</project>

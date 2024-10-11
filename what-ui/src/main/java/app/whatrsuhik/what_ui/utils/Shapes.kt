@@ -26,21 +26,21 @@ enum class Size(val value: Int?) {
     ABSOLUTE(null)
 }
 
-fun sizedShape(size: Size) = when (size) {
+fun shape(size: Size) = when (size) {
     Size.NONE -> RectangleShape
     Size.ABSOLUTE -> CircleShape
     else -> RoundedCornerShape(size.value!!.dp)
 }
 
 @Composable
-fun RowScope.SizedGap(size: Size) = when (size) {
+fun RowScope.Gap(size: Size) = when (size) {
     Size.NONE -> Spacer(Modifier)
     Size.ABSOLUTE -> Spacer(Modifier.fillMaxWidth())
     else -> Gap(size.value!!)
 }
 
 @Composable
-fun ColumnScope.SizedGap(size: Size) = when (size) {
+fun ColumnScope.Gap(size: Size) = when (size) {
     Size.NONE -> Spacer(Modifier)
     Size.ABSOLUTE -> Spacer(Modifier.fillMaxHeight())
     else -> Gap(size.value!!)
@@ -48,7 +48,7 @@ fun ColumnScope.SizedGap(size: Size) = when (size) {
 
 
 @Composable
-fun LazyItemScope.SizedGap(size: Size, orientation: Orientation = Orientation.Vertical) =
+fun LazyItemScope.Gap(size: Size, orientation: Orientation = Orientation.Vertical) =
     when (size) {
         Size.NONE -> Spacer(Modifier)
         Size.ABSOLUTE -> Spacer(Modifier.fillMaxSize())
