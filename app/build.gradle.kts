@@ -57,6 +57,7 @@ dependencies {
     implementation(project(":what-navigation"))
     implementation(project(":what-foundation"))
     implementation(project(":what-ui"))
+    implementation(project(":what-shadcn-ui"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

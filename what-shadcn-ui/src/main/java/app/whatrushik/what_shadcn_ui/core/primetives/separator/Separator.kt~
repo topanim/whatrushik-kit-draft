@@ -1,0 +1,32 @@
+package app.whatrushik.what_shadcn_ui.core.primetives.separator
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import app.whatrsuhik.what_shadcn_ui.core.theme.LocalSHUIColor
+
+@Composable
+fun ColumnScope.Separator(modifier: Modifier = Modifier) = Spacer(
+    modifier = Modifier
+        .fillMaxWidth()
+        .height(1.dp)
+        .background(LocalSHUIColor.current.i200)
+        .then(modifier)
+)
+
+@Composable
+fun RowScope.Separator(modifier: Modifier = Modifier) = Spacer(
+    modifier = Modifier
+        .fillMaxHeight()
+        .width(1.dp)
+        .background(LocalSHUIColor.current.i200)
+        .then(modifier)
+)

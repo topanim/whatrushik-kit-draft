@@ -1,0 +1,94 @@
+package app.whatrushik.what_shadcn_ui.core.theme
+
+import androidx.compose.ui.graphics.Color
+
+data class SHUIPallete(
+    val background: Color,
+    val foreground: Color,
+    val card: Color,
+    val cardForeground: Color,
+    val popover: Color,
+    val popoverForeground: Color,
+    val primary: Color,
+    val primaryForeground: Color,
+    val secondary: Color,
+    val secondaryForeground: Color,
+    val muted: Color,
+    val mutedForeground: Color,
+    val accent: Color,
+    val accentForeground: Color,
+    val destructive: Color,
+    val destructiveForeground: Color,
+    val border: Color,
+    val input: Color,
+    val ring: Color,
+    val chart1: Color,
+    val chart2: Color,
+    val chart3: Color,
+    val chart4: Color,
+    val chart5: Color
+) {
+    companion object {
+        // Helper function to convert HSL values to Color
+        private fun hslToColor(h: Int, s: Float, l: Float): Color {
+            val hslH = h.toFloat() / 360f
+            val hslS = s.toFloat() / 100f
+            val hslL = l.toFloat() / 100f
+            return Color.hsl(hslH, hslS, hslL)
+        }
+
+        val lightPalette = SHUIPalette(
+            background = hslToColor(0, 0f, 100f),
+            foreground = hslToColor(240, 10f, 3.9f),
+            card = hslToColor(0, 0f, 100f),
+            cardForeground = hslToColor(240, 10, 3.9f),
+            popover = hslToColor(0, 0, 100),
+            popoverForeground = hslToColor(240, 10, 3.9),
+            primary = hslToColor(240, 5.9, 10),
+            primaryForeground = hslToColor(0, 0, 98),
+            secondary = hslToColor(240, 4.8, 95.9),
+            secondaryForeground = hslToColor(240, 5.9, 10),
+            muted = hslToColor(240, 4.8, 95.9),
+            mutedForeground = hslToColor(240, 3.8, 46.1),
+            accent = hslToColor(240, 4.8, 95.9),
+            accentForeground = hslToColor(240, 5.9, 10),
+            destructive = hslToColor(0, 84.2, 60.2),
+            destructiveForeground = hslToColor(0, 0, 98),
+            border = hslToColor(240, 5.9, 90),
+            input = hslToColor(240, 5.9, 90),
+            ring = hslToColor(240, 5.9, 10),
+            chart1 = hslToColor(12, 76, 61),
+            chart2 = hslToColor(173, 58, 39),
+            chart3 = hslToColor(197, 37, 24),
+            chart4 = hslToColor(43, 74, 66),
+            chart5 = hslToColor(27, 87, 67)
+        )
+
+        val darkPalette = SHUIPalette(
+            background = hslToColor(240, 10, 3.9),
+            foreground = hslToColor(0, 0, 98),
+            card = hslToColor(240, 10, 3.9),
+            cardForeground = hslToColor(0, 0, 98),
+            popover = hslToColor(240, 10, 3.9),
+            popoverForeground = hslToColor(0, 0, 98),
+            primary = hslToColor(0, 0, 98),
+            primaryForeground = hslToColor(240, 5.9, 10),
+            secondary = hslToColor(240, 3.7, 15.9),
+            secondaryForeground = hslToColor(0, 0, 98),
+            muted = hslToColor(240, 3.7, 15.9),
+            mutedForeground = hslToColor(240, 5, 64.9),
+            accent = hslToColor(240, 3.7, 15.9),
+            accentForeground = hslToColor(0, 0, 98),
+            destructive = hslToColor(0, 62.8, 30.6),
+            destructiveForeground = hslToColor(0, 0, 98),
+            border = hslToColor(240, 3.7, 15.9),
+            input = hslToColor(240, 3.7, 15.9),
+            ring = hslToColor(240, 4.9, 83.9),
+            chart1 = hslToColor(220, 70, 50),
+            chart2 = hslToColor(160, 60, 45),
+            chart3 = hslToColor(30, 80, 55),
+            chart4 = hslToColor(280, 65, 60),
+            chart5 = hslToColor(340, 75, 55)
+        )
+    }
+}

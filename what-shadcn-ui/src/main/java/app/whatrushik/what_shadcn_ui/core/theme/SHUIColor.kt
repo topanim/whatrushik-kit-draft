@@ -15,10 +15,12 @@ data class SHUIColor(
     val i600: Color,
     val i700: Color,
     val i800: Color,
-    val i900: Color
+    val i900: Color,
+    val black: Color = Color(0xFF000000),
+    val white: Color = Color(0xFFFFFFFF)
 ) {
     companion object Defaults {
-        val Slate = SHUIColor(
+        val slate = SHUIColor(
             i50 = Color(0xFFF8FAFC),
             i100 = Color(0xFFF1F5F9),
             i200 = Color(0xFFE2E8F0),
@@ -31,7 +33,7 @@ data class SHUIColor(
             i900 = Color(0xFF0F172A)
         )
 
-        val Gray = SHUIColor(
+        val gray = SHUIColor(
             i50 = Color(0xFFF9FAFB),
             i100 = Color(0xFFF3F4F6),
             i200 = Color(0xFFE5E7EB),
@@ -44,7 +46,7 @@ data class SHUIColor(
             i900 = Color(0xFF111827)
         )
 
-        val Zinc = SHUIColor(
+        val zinc = SHUIColor(
             i50 = Color(0xFFFAFAFA),
             i100 = Color(0xFFF4F4F5),
             i200 = Color(0xFFE4E4E7),
@@ -57,7 +59,7 @@ data class SHUIColor(
             i900 = Color(0xFF18181B)
         )
 
-        val Neutral = SHUIColor(
+        val neutral = SHUIColor(
             i50 = Color(0xFFFAFAFA),
             i100 = Color(0xFFF5F5F5),
             i200 = Color(0xFFE5E5E5),
@@ -70,7 +72,7 @@ data class SHUIColor(
             i900 = Color(0xFF171717)
         )
 
-        val Stone = SHUIColor(
+        val stone = SHUIColor(
             i50 = Color(0xFFFAFAF9),
             i100 = Color(0xFFF5F5F4),
             i200 = Color(0xFFE7E5E4),
@@ -83,7 +85,7 @@ data class SHUIColor(
             i900 = Color(0xFF1C1917)
         )
 
-        val Red = SHUIColor(
+        val red = SHUIColor(
             i50 = Color(0xFFFEF2F2),
             i100 = Color(0xFFFEE2E2),
             i200 = Color(0xFFFECACA),
@@ -96,7 +98,7 @@ data class SHUIColor(
             i900 = Color(0xFF7F1D1D)
         )
 
-        val Orange = SHUIColor(
+        val orange = SHUIColor(
             i50 = Color(0xFFFFF7ED),
             i100 = Color(0xFFFFEDD5),
             i200 = Color(0xFFFED7AA),
@@ -109,7 +111,7 @@ data class SHUIColor(
             i900 = Color(0xFF7C2D12)
         )
 
-        val Amber = SHUIColor(
+        val amber = SHUIColor(
             i50 = Color(0xFFFFFBEB),
             i100 = Color(0xFFFEF3C7),
             i200 = Color(0xFFFDE68A),
@@ -122,7 +124,7 @@ data class SHUIColor(
             i900 = Color(0xFF78350F)
         )
 
-        val Yellow = SHUIColor(
+        val yellow = SHUIColor(
             i50 = Color(0xFFFEFCE8),
             i100 = Color(0xFFFEF9C3),
             i200 = Color(0xFFFEF08A),
@@ -135,7 +137,7 @@ data class SHUIColor(
             i900 = Color(0xFF713F12)
         )
 
-        val Lime = SHUIColor(
+        val lime = SHUIColor(
             i50 = Color(0xFFF7FEE7),
             i100 = Color(0xFFECFCCB),
             i200 = Color(0xFFD9F99D),
@@ -148,7 +150,7 @@ data class SHUIColor(
             i900 = Color(0xFF365314)
         )
 
-        val Green = SHUIColor(
+        val green = SHUIColor(
             i50 = Color(0xFFF0FDF4),
             i100 = Color(0xFFDCFCE7),
             i200 = Color(0xFFBBF7D0),
@@ -161,7 +163,7 @@ data class SHUIColor(
             i900 = Color(0xFF14532D)
         )
 
-        val Emerald = SHUIColor(
+        val emerald = SHUIColor(
             i50 = Color(0xFFECFDF5),
             i100 = Color(0xFFD1FAE5),
             i200 = Color(0xFFA7F3D0),
@@ -174,7 +176,7 @@ data class SHUIColor(
             i900 = Color(0xFF064E3B)
         )
 
-        val Teal = SHUIColor(
+        val teal = SHUIColor(
             i50 = Color(0xFFF0FDFA),
             i100 = Color(0xFFCCFBF1),
             i200 = Color(0xFF99F6E4),
@@ -187,7 +189,7 @@ data class SHUIColor(
             i900 = Color(0xFF134E4A)
         )
 
-        val Cyan = SHUIColor(
+        val cyan = SHUIColor(
             i50 = Color(0xFFECFEFF),
             i100 = Color(0xFFCFFAFE),
             i200 = Color(0xFFA5F3FC),
@@ -200,7 +202,7 @@ data class SHUIColor(
             i900 = Color(0xFF164E63)
         )
 
-        val Sky = SHUIColor(
+        val sky = SHUIColor(
             i50 = Color(0xFFF0F9FF),
             i100 = Color(0xFFE0F2FE),
             i200 = Color(0xFFBAE6FD),
@@ -213,7 +215,7 @@ data class SHUIColor(
             i900 = Color(0xFF0C4A6E)
         )
 
-        val Blue = SHUIColor(
+        val blue = SHUIColor(
             i50 = Color(0xFFEFF6FF),
             i100 = Color(0xFFDBEAFE),
             i200 = Color(0xFFBFDBFE),
@@ -226,7 +228,7 @@ data class SHUIColor(
             i900 = Color(0xFF1E3A8A)
         )
 
-        val Indigo = SHUIColor(
+        val indigo = SHUIColor(
             i50 = Color(0xFFEEF2FF),
             i100 = Color(0xFFE0E7FF),
             i200 = Color(0xFFC7D2FE),
@@ -239,7 +241,7 @@ data class SHUIColor(
             i900 = Color(0xFF312E81)
         )
 
-        val Violet = SHUIColor(
+        val violet = SHUIColor(
             i50 = Color(0xFFF5F3FF),
             i100 = Color(0xFFEDE9FE),
             i200 = Color(0xFFDDD6FE),
@@ -252,7 +254,7 @@ data class SHUIColor(
             i900 = Color(0xFF4C1D95)
         )
 
-        val Purple = SHUIColor(
+        val purple = SHUIColor(
             i50 = Color(0xFFFAF5FF),
             i100 = Color(0xFFF3E8FF),
             i200 = Color(0xFFE9D5FF),
@@ -265,7 +267,7 @@ data class SHUIColor(
             i900 = Color(0xFF581C87)
         )
 
-        val Fuchsia = SHUIColor(
+        val fuchsia = SHUIColor(
             i50 = Color(0xFFFDF4FF),
             i100 = Color(0xFFFAE8FF),
             i200 = Color(0xFFF5D0FE),
@@ -278,7 +280,7 @@ data class SHUIColor(
             i900 = Color(0xFF701A75)
         )
 
-        val Pink = SHUIColor(
+        val pink = SHUIColor(
             i50 = Color(0xFFFDF2F8),
             i100 = Color(0xFFFCE7F3),
             i200 = Color(0xFFFBCFE8),
@@ -291,7 +293,7 @@ data class SHUIColor(
             i900 = Color(0xFF831843)
         )
 
-        val Rose = SHUIColor(
+        val rose = SHUIColor(
             i50 = Color(0xFFFFF1F2),
             i100 = Color(0xFFFFE4E6),
             i200 = Color(0xFFFECDD3),
@@ -304,27 +306,11 @@ data class SHUIColor(
             i900 = Color(0xFF881337)
         )
 
-        val Common = Slate
-        
+        val Common = slate
+
         fun all() = listOf(
-            Slate,
-            Gray,
-            Zinc,
-            Neutral,
-            Stone,
-            Red,
-            Orange,
-            Yellow,
-            Green,
-            Teal,
-            Cyan,
-            Blue,
-            Indigo,
-            Violet,
-            Purple,
-            Fuchsia,
-            Pink,
-            Rose
+            slate, gray, zinc, neutral, stone, red, orange, amber, yellow, lime, green,
+            emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose
         )
     }
 
