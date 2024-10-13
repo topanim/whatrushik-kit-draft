@@ -34,7 +34,7 @@ data class SHUIPalette(
     companion object Defaults {
         // Helper function to convert HSL values to Color
         private fun hslToColor(h: Int, s: Float, l: Float): Color {
-            return Color.hsl(h.toFloat(), s / 100f, l / 100f)
+            return Color.hsl(h.toFloat(), s, l)
         }
 
         fun zinc(dark: Boolean) = if (dark) zincDarkPalette else zincLightPalette

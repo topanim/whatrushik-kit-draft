@@ -18,10 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import app.whatrsuhik.what_shadcn_ui.core.theme.LocalSHUIColor
-import app.whatrsuhik.what_shadcn_ui.core.theme.LocalSHUITypography
-import app.whatrushik.what_shadcn_ui.core.primetives.spacer.Spacer
-import app.whatrushik.what_shadcn_ui.core.theme.LocalSHUISpacing
+import app.whatrushik.what_shadcn_ui.core.primetives.spacer.Space
+import app.whatrushik.what_shadcn_ui.core.theme.SHUITheme.palettes
+import app.whatrushik.what_shadcn_ui.core.theme.SHUITheme.spacing
+import app.whatrushik.what_shadcn_ui.core.theme.SHUITheme.typography
 
 @Composable
 fun Accordion(
@@ -50,19 +50,19 @@ data class AccordionItem(
     fun Trigger(modifier: Modifier, expanded: Boolean) = Box(
         modifier
             .fillMaxWidth()
-            .padding(vertical = LocalSHUISpacing.current.md.dp)
+            .padding(vertical = spacing.md.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = LocalSHUISpacing.current.md.dp)
+                .padding(horizontal = spacing.md.dp)
         ) {
             Text(
                 text = title,
-                style = LocalSHUITypography.current.pUiMedium,
-                color = LocalSHUIColor.current.i900,
+                style = typography.pUiMedium,
+                color = palettes.foreground,
                 textDecoration = if (expanded) TextDecoration.Underline else TextDecoration.None
             )
 
@@ -73,7 +73,7 @@ data class AccordionItem(
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,
                 contentDescription = "Expand $title",
-                tint = LocalSHUIColor.current.i900,
+                tint = palettes.foreground,
                 modifier = Modifier.rotate(iconRotationState)
             )
         }
@@ -86,13 +86,13 @@ data class AccordionItem(
     ) {
         Text(
             description,
-            style = LocalSHUITypography.current.subtle,
-            color = LocalSHUIColor.current.i900,
+            style = typography.subtle,
+            color = palettes.foreground,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = LocalSHUISpacing.current.md.dp)
+                .padding(horizontal = spacing.md.dp)
         )
 
-        Spacer(LocalSHUISpacing.current.sm)
+        Space(spacing.sm)
     }
 }

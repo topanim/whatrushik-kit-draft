@@ -10,16 +10,18 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.whatrushik.what_shadcn_ui.core.primetives.separator.Separator
 import app.whatrushik.what_shadcn_ui.core.theme.LocalSHUISpacing
+import app.whatrushik.what_shadcn_ui.core.theme.SHUITheme.spacing
 import app.whatrushik.what_shadcn_ui.core.utils.toggle
 
 val LocalAccordionState =
     compositionLocalOf<List<Int>> { error("LocalAccordionState not provided") }
 val LocalAccordionStateListener =
-    compositionLocalOf<(Int) -> Unit> { error("LocalAccordionStateListener not provided") }
+    staticCompositionLocalOf<(Int) -> Unit> { error("LocalAccordionStateListener not provided") }
 
 enum class AccordionMode {
     Single,
@@ -64,5 +66,5 @@ fun AccordionItem(
 
     trigger(Modifier.clickable { stateListener(index) }, expanded)
     AnimatedVisibility(visible = expanded) { content(Modifier) }
-    Separator(Modifier.padding(horizontal = LocalSHUISpacing.current.md.dp))
+    Separator(Modifier.padding(horizontal = spacing.md.dp))
 }
