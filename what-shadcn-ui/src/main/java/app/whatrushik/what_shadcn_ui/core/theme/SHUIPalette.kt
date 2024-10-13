@@ -50,6 +50,21 @@ data class SHUIPalette(
         fun yellow(dark: Boolean) = if (dark) yellowDarkPalette else yellowLightPalette
         fun violet(dark: Boolean) = if (dark) violetDarkPalette else violetLightPalette
 
+        fun all(dark: Boolean) = listOf(
+            zinc(dark),
+            slate(dark),
+            stone(dark),
+            gray(dark),
+            neutral(dark),
+            red(dark),
+            rose(dark),
+            orange(dark),
+            green(dark),
+            blue(dark),
+            yellow(dark),
+            violet(dark)
+        )
+
         val zincLightPalette = SHUIPalette(
             background = hslToColor(0, 0f, 100f),
             foreground = hslToColor(240, 10f, 3.9f),

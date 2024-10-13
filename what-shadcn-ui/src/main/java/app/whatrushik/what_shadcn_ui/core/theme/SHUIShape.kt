@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
 val LocalSHUIShape =
-    compositionLocalOf<SHUIShape> { SHUIShapes.Medium }
+    compositionLocalOf<SHUIShape> { SHUIShapes.Small }
 
 typealias SHUIShape = Shape
 

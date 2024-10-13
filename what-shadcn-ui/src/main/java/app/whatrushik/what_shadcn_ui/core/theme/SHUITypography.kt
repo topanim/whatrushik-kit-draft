@@ -2,6 +2,7 @@ package app.whatrsuhik.what_shadcn_ui.core.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -92,7 +93,7 @@ data class SHUITypography(
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
                 fontWeight = FontWeight.Bold,
-//                fontFamily = FontFamily.Menlo
+                fontFamily = FontFamily.Monospace
             ),
             lead = TextStyle(
                 fontSize = 20.sp,
