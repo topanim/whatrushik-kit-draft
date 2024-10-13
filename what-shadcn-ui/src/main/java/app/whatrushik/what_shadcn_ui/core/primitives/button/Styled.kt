@@ -62,28 +62,26 @@ fun Button(
             else SHUIIcons.Loader2
         }
 
-        if (finalIcon != null) {
-            Icon(
-                imageVector = finalIcon,
-                contentDescription = "Button icon",
-                tint = mode.foreground,
-                modifier = Modifier.applyComposableIf(mode == ButtonMode.Loading) {
-                    val infiniteTransition =
-                        rememberInfiniteTransition(label = "ButtonIconRotationAnimation")
-                    val angle by infiniteTransition.animateFloat(
-                        initialValue = 0F,
-                        targetValue = 360F,
-                        animationSpec = infiniteRepeatable(
-                            animation = tween(2000, easing = LinearEasing)
-                        ), label = "ButtonIconRotationAnimationTransition"
-                    )
+        if (finalIcon != null) Icon(
+            imageVector = finalIcon,
+            contentDescription = "Button icon",
+            tint = mode.foreground,
+            modifier = Modifier.applyComposableIf(mode == ButtonMode.Loading) {
+                val infiniteTransition =
+                    rememberInfiniteTransition(label = "ButtonIconRotationAnimation")
+                val angle by infiniteTransition.animateFloat(
+                    initialValue = 0F,
+                    targetValue = 360F,
+                    animationSpec = infiniteRepeatable(
+                        animation = tween(2000, easing = LinearEasing)
+                    ), label = "ButtonIconRotationAnimationTransition"
+                )
 
-                    return@applyComposableIf rotate(angle)
-                }
-            )
-        }
+                return@applyComposableIf rotate(angle)
+            }
+        )
 
-        if (label != null && icon != null) Space(spacing.md)
+        if (label != null && finalIcon != null) Space(spacing.sm)
 
         if (label != null) Text(
             text = label,

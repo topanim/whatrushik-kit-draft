@@ -19,7 +19,7 @@ fun Checkbox(
     colors = CheckboxDefaults.colors(
         checkedColor = palettes.primary,
         uncheckedColor = palettes.secondary,
-        checkmarkColor = palettes.foreground,
+        checkmarkColor = palettes.primaryForeground,
         disabledCheckedColor = palettes.muted,
         disabledUncheckedColor = palettes.muted,
         disabledIndeterminateColor = palettes.muted
